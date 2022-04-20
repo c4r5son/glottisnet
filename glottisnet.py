@@ -85,7 +85,7 @@ if __name__=="__main__":
 
     if args.model == "real":
         #load the real weights model
-        glottisnet = glottisnet()
+        glottisnet = glottisnet(weights_path="models/unet_real.pth")
     else:
         #if nothing specified or dummy use the weights trained with images from intubation manikin
         glottisnet = glottisnet()
