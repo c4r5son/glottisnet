@@ -1,3 +1,4 @@
+from unittest.util import three_way_cmp
 import model
 
 import torch
@@ -41,13 +42,11 @@ class glottisnet():
         image_transformed = image_transformed.unsqueeze(0)
         
         image_mask = self.__predict(self.unet, image_transformed, self.device)
-        image_mask = cv2.resize(image_mask[0], (original_width, original_height), 
-                            interpolation=cv2.INTER_NEAREST)
+        image_mask = cv2.resize(image_mask[0], (original_width, original_height), interpolation=cv2.INTER_NEAREST)
             
         return(image_mask)
 
-    def plot_example(self,image_path):
-        #image example
+    def plot_example(self,image_path,threshold=90000):
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -55,9 +54,35 @@ class glottisnet():
 
         _, (axis1, axis2) = plt.subplots(2)
 
+        box = glottisnet.__boundingBox(mask)
+        #area = (xmax-xmin)*(ymax-ymin)
+        area = (box[1][0]-box[0][0])*(box[1][1]-box[0][1])
+        print(area)
+
+        #if the area of the box is greater than the threshold value draw it
+        if area >= threshold:
+            color = (255, 0, 0)
+            thickness = 3
+            cv2.rectangle(image,box[0],box[1],color,thickness)
+
         axis1.imshow(image)
         axis2.imshow(mask)
         plt.show()
+    
+    @classmethod
+    def __boundingBox(self, arr):
+        '''This method gives a bounding box around the highlighted values of an inputted numpy array.
+        @param arr Image
+        @ret (xmin, ymin), (xmax, ymax)
+        '''
+        rows = np.any(arr, axis=1)
+        cols = np.any(arr, axis=0)
+        ymin, ymax = np.where(rows)[0][[0, -1]]
+        xmin, xmax = np.where(cols)[0][[0, -1]]
+        print(ymin,ymax)
+        print(xmin,xmax)
+
+        return (xmin, ymin), (xmax, ymax)
 
 def parse_args() -> argparse.Namespace:
 
