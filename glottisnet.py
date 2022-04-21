@@ -1,4 +1,3 @@
-from unittest.util import three_way_cmp
 import model
 
 import torch
@@ -35,16 +34,14 @@ class glottisnet():
             predicted_masks = (output.squeeze() >= 4.3).float().cpu().numpy()
         return(predicted_masks)
 
-    def get_mask(self, img_path) -> np.ndarray:
+    def get_mask(self, img) -> np.ndarray:
         '''This method returns a numpy array mask based on the passed image path.
-        @param img_path path to an image to get mask
+        @param img an image to get a mask for
         
         @ret mask'''
-        image = cv2.imread(img_path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        original_height, original_width = tuple(image.shape[:2])
+        original_height, original_width = tuple(img.shape[:2])
         
-        image_transformed = self.image_transforms(image)
+        image_transformed = self.image_transforms(img)
         image_transformed = image_transformed.unsqueeze(0)
         
         image_mask = self.__predict(self.unet, image_transformed, self.device)
@@ -59,7 +56,7 @@ class glottisnet():
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        mask = self.get_mask(image_path)
+        mask = self.get_mask(image)
 
         _, (axis1, axis2) = plt.subplots(2)
 
@@ -76,6 +73,43 @@ class glottisnet():
         axis1.imshow(image)
         axis2.imshow(mask)
         plt.show()
+
+    def getBoundingBox(self, img, threshold=90000):
+        '''This method takes an image and returns a bounding box if the area of the box is greater than the threshold, otherwise it returns None.
+        @param img an image to process
+        @param threshold the area threshold to consider a glottis found
+        @ret a bounding box of the form ((xmin, ymin), (xmax, ymax))'''
+        mask = self.get_mask(img)
+
+        box = glottisnet.__boundingBox(mask)
+        #area = (xmax-xmin)*(ymax-ymin)
+        area = (box[1][0]-box[0][0])*(box[1][1]-box[0][1])
+
+        #if the area of the box is greater than the threshold value draw it
+        if area >= threshold:
+            return box
+        else:
+            return None
+
+    def drawBoundingBox(self, img, threshold=90000):
+        '''This method takes an image and returns an image with a bounding box drawn on it if there is one.
+        @param img an image to process
+        @param threshold the area threshold to consider a glottis found
+        @ret an image with bounding box'''
+        mask = self.get_mask(img)
+
+        box = glottisnet.__boundingBox(mask)
+        #area = (xmax-xmin)*(ymax-ymin)
+        area = (box[1][0]-box[0][0])*(box[1][1]-box[0][1])
+
+        #if the area of the box is greater than the threshold value draw it
+        if area >= threshold:
+            color = (255, 0, 0)
+            thickness = 5
+            cv2.rectangle(img,box[0],box[1],color,thickness)
+            return img
+        else:
+            return img
     
     @classmethod
     def __boundingBox(self, arr):
