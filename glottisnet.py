@@ -57,12 +57,11 @@ class glottisnet():
         box = glottisnet.__boundingBox(mask)
         #area = (xmax-xmin)*(ymax-ymin)
         area = (box[1][0]-box[0][0])*(box[1][1]-box[0][1])
-        print(area)
 
         #if the area of the box is greater than the threshold value draw it
         if area >= threshold:
             color = (255, 0, 0)
-            thickness = 3
+            thickness = 5
             cv2.rectangle(image,box[0],box[1],color,thickness)
 
         axis1.imshow(image)
@@ -79,8 +78,6 @@ class glottisnet():
         cols = np.any(arr, axis=0)
         ymin, ymax = np.where(rows)[0][[0, -1]]
         xmin, xmax = np.where(cols)[0][[0, -1]]
-        print(ymin,ymax)
-        print(xmin,xmax)
 
         return (xmin, ymin), (xmax, ymax)
 
