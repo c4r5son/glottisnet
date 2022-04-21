@@ -22,8 +22,11 @@ class glottisnet():
         self.unet.to(self.device)
         self.unet.load_state_dict(torch.load(weights_path, map_location=self.device))
 
-    def __predict(self, model, img, device):
-        '''This function outputs a prediction mask from the loaded model and image. Not for public use.'''
+    def __predict(self, model, img, device) -> np.ndarray:
+        '''This function outputs a prediction mask from the loaded model and image. Not for public use.
+        @param model the model to use for prediction
+        @param img the image to predict on
+        @param device cpu or CUDA'''
         model.eval()
         with torch.no_grad():
             images = img.to(device)
@@ -32,8 +35,11 @@ class glottisnet():
             predicted_masks = (output.squeeze() >= 4.3).float().cpu().numpy()
         return(predicted_masks)
 
-    #define function to load image and output mask
-    def get_mask(self, img_path):
+    def get_mask(self, img_path) -> np.ndarray:
+        '''This method returns a numpy array mask based on the passed image path.
+        @param img_path path to an image to get mask
+        
+        @ret mask'''
         image = cv2.imread(img_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         original_height, original_width = tuple(image.shape[:2])
@@ -47,6 +53,9 @@ class glottisnet():
         return(image_mask)
 
     def plot_example(self,image_path,threshold=90000):
+        '''This method plots a given image and its mask when run through the network with matplotlib.
+        @param image_path path to an example image
+        @param threshold the area threshold to consider a glottis found'''
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
