@@ -30,10 +30,10 @@ def get_dataset(width_in, height_in,batch_size):
 
     #define the training dataset and the testing dataset
     training_data = dataset.ETIDataset(
-    r'/Users/cj/data/Epiglottis_Data/', train=True, transform=transform)
+    r'/local/scr/akurbach/Epiglottis_Data/', train=True, transform=transform)
 
     test_data = dataset.ETIDataset(
-    r'/Users/cj/data/Epiglottis_Data/', train=False, transform=transform)
+    r'/local/scr/akurbach/Epiglottis_Data/', train=False, transform=transform)
 
     #instantiate the dataloaders
     train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
