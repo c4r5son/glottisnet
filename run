@@ -1,0 +1,26 @@
+#!/bin/tcsh
+#PBS -N pytorch
+#PBS -l nodes=1:hima:gpu:ppn=64
+#PBS -l walltime=6:00:00
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+
+source "/usr/local/anaconda3-2021.11/etc/profile.d/conda.csh"
+# Conda module does not load properly in non-interactive (batch) jobs
+# this will load it properly for batch jobs
+
+unsetenv PYTHONPATH
+# conda allow intermingling with python environments
+# However, having PYTHONPATH set in conda is usually not helpful
+# don't unsetenv if you need your PYTHONPATH
+
+conda activate pytorch
+# turn on pytorch conda environment
+
+#-----  add your stuff here
+
+python training.py
+
+
