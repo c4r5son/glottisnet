@@ -1,7 +1,7 @@
 #!/bin/tcsh
 #PBS -N pytorch
 #PBS -l nodes=1:hima:gpu:ppn=64
-#PBS -l walltime=6:00:00
+#PBS -l walltime=48:00:00
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
@@ -21,6 +21,6 @@ conda activate pytorch
 
 #-----  add your stuff here
 
-python training.py
+python training.py train
 
 

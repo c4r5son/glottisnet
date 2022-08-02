@@ -13,6 +13,7 @@ import dataset
 from torch.utils.data import DataLoader
 import sys
 import cv2
+import time
 gc.collect()
 use_gpu = torch.cuda.is_available()
 
@@ -22,7 +23,7 @@ def thresh(x):
     else:
         return 1
 
-thresh = np.vectorize(thresh, otypes=[np.float])
+thresh = np.vectorize(thresh, otypes=[float])
 
 def get_dataset(width_in, height_in,batch_size):
     #compose the all transformation
@@ -30,10 +31,10 @@ def get_dataset(width_in, height_in,batch_size):
 
     #define the training dataset and the testing dataset
     training_data = dataset.ETIDataset(
-    r'/local/scr/akurbach/Epiglottis_Data/', train=True, transform=transform)
+    r'/sciclone/pscr/akurbach/Epiglottis_Data', train=True, transform=transform)
 
     test_data = dataset.ETIDataset(
-    r'/local/scr/akurbach/Epiglottis_Data/', train=False, transform=transform)
+    r'/sciclone/pscr/akurbach/Epiglottis_Data', train=False, transform=transform)
 
     #instantiate the dataloaders
     train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
@@ -42,6 +43,10 @@ def get_dataset(width_in, height_in,batch_size):
 
 def train_step(inputs, labels, optimizer, criterion, unet, width_out, height_out):
     optimizer.zero_grad()
+    
+    #move inputs to gpu
+    inputs = inputs.cuda()
+
     # forward + backward + optimize
     outputs = unet(inputs)
     # outputs.shape =(batch_size, n_classes, img_cols, img_rows)
@@ -51,6 +56,10 @@ def train_step(inputs, labels, optimizer, criterion, unet, width_out, height_out
     outputs = outputs.resize(m*width_out*height_out, 2)
     labels = labels.resize(m*width_out*height_out)
     labels = labels.long()
+
+    #move labels to gpu
+    labels = labels.cuda()
+
     loss = criterion(outputs, labels)
     loss.backward()
     optimizer.step()
@@ -59,7 +68,12 @@ def train_step(inputs, labels, optimizer, criterion, unet, width_out, height_out
 def get_val_loss(test_dataloader, width_out, height_out, unet):
     val_loss = 0
     for X,y in test_dataloader:
+        #move to gpu
+        X = X.cuda()
+        y = y.cuda()
+
         m = X.shape[0]
+
         outputs = unet(X)
         # outputs.shape =(batch_size, n_classes, img_cols, img_rows) 
         outputs = outputs.permute(0, 2, 3, 1)
@@ -83,6 +97,7 @@ def train(unet, batch_size, epochs, epoch_lapse, threshold, learning_rate, crite
     gc.collect()
 
 def main():
+    start = time.time()
     width_in = 284
     height_in = 284
     width_out = 196
@@ -101,8 +116,9 @@ def main():
     if sys.argv[1] == 'train':
         train(unet, batch_size, epochs, epoch_lapse, threshold, learning_rate, criterion, optimizer, train_dataloader, test_dataloader, width_out, height_out)
     
-    PATH = './models/unet.pth'
+    PATH = "/sciclone/pscr/akurbach/models/unet.pth"
     torch.save(unet.state_dict(), PATH)
+    print("Elapsed time:", time.time() - start)
 
 if __name__ == "__main__":
     main()

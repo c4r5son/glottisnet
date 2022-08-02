@@ -1,0 +1,22 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/_tensor.py:490: UserWarning: non-inplace resize is deprecated
+  warnings.warn("non-inplace resize is deprecated")
+Traceback (most recent call last):
+  File "/sciclone/home20/akurbach/glottisnet/training.py", line 119, in <module>
+    main()
+  File "/sciclone/home20/akurbach/glottisnet/training.py", line 112, in main
+    train(unet, batch_size, epochs, epoch_lapse, threshold, learning_rate, criterion, optimizer, train_dataloader, test_dataloader, width_out, height_out)
+  File "/sciclone/home20/akurbach/glottisnet/training.py", line 87, in train
+    batch_loss = train_step(X , y, optimizer, criterion, unet, width_out, height_out)
+  File "/sciclone/home20/akurbach/glottisnet/training.py", line 59, in train_step
+    loss = criterion(outputs, labels)
+  File "/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py", line 1120, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/nn/functional.py", line 2824, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index)
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking arugment for argument target in method wrapper_nll_loss_forward)
