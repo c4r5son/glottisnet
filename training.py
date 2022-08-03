@@ -102,9 +102,9 @@ def main():
     height_in = 284
     width_out = 196
     height_out = 196
-    batch_size = 2
+    batch_size = 16
     train_dataloader, test_dataloader= get_dataset(width_in, height_in, batch_size)
-    epochs = 8
+    epochs = 64
     epoch_lapse = 50
     threshold = 0.5
     learning_rate = 0.001
