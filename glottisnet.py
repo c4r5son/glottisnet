@@ -137,6 +137,7 @@ def parse_args() -> argparse.Namespace:
         required=True
     )
     parser.add_argument(
+        "-m",
         "--model",
         choices=["dummy","real"],
         help=(
@@ -151,9 +152,11 @@ if __name__=="__main__":
     if args.model == "real":
         #load the real weights model
         glottisnet = glottisnet(weights_path="models/unet_real.pth")
-    else:
+    elif args.model == "dummy" or args.model == "":
         #if nothing specified or dummy use the weights trained with images from intubation manikin
         glottisnet = glottisnet()
+    else:
+        glottisnet = glottisnet(weights_path=args.model)
 
     glottisnet.plot_example(args.input)
     
