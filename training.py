@@ -107,7 +107,7 @@ def main():
     epochs = 64
     epoch_lapse = 50
     threshold = 0.5
-    learning_rate = 0.001
+    learning_rate = 0.0001
     unet = UNet(in_channel=1,out_channel=2)
     if use_gpu:
         unet = unet.cuda()

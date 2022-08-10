@@ -1,0 +1,71 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+/sciclone/home20/akurbach/.conda/envs/pytorch/lib/python3.9/site-packages/torch/_tensor.py:490: UserWarning: non-inplace resize is deprecated
+  warnings.warn("non-inplace resize is deprecated")
+Total loss in epoch 1 : 41.234413 and validation loss : 0.020068
+Total loss in epoch 2 : 1.566075 and validation loss : 0.014565
+Total loss in epoch 3 : 1.184976 and validation loss : 0.011445
+Total loss in epoch 4 : 0.954387 and validation loss : 0.009431
+Total loss in epoch 5 : 0.799449 and validation loss : 0.008022
+Total loss in epoch 6 : 0.688058 and validation loss : 0.006983
+Total loss in epoch 7 : 0.604097 and validation loss : 0.006181
+Total loss in epoch 8 : 0.538430 and validation loss : 0.005546
+Total loss in epoch 9 : 0.485691 and validation loss : 0.005029
+Total loss in epoch 10 : 0.442404 and validation loss : 0.004600
+Total loss in epoch 11 : 0.406215 and validation loss : 0.004240
+Total loss in epoch 12 : 0.375518 and validation loss : 0.003931
+Total loss in epoch 13 : 0.349145 and validation loss : 0.003665
+Total loss in epoch 14 : 0.326247 and validation loss : 0.003432
+Total loss in epoch 15 : 0.306171 and validation loss : 0.003228
+Total loss in epoch 16 : 0.288433 and validation loss : 0.003046
+Total loss in epoch 17 : 0.272631 and validation loss : 0.002883
+Total loss in epoch 18 : 0.258481 and validation loss : 0.002738
+Total loss in epoch 19 : 0.245731 and validation loss : 0.002606
+Total loss in epoch 20 : 0.234180 and validation loss : 0.002486
+Total loss in epoch 21 : 0.223666 and validation loss : 0.002377
+Total loss in epoch 22 : 0.214065 and validation loss : 0.002278
+Total loss in epoch 23 : 0.205251 and validation loss : 0.002185
+Total loss in epoch 24 : 0.197133 and validation loss : 0.002101
+Total loss in epoch 25 : 0.189636 and validation loss : 0.002023
+Total loss in epoch 26 : 0.182692 and validation loss : 0.001950
+Total loss in epoch 27 : 0.176236 and validation loss : 0.001882
+Total loss in epoch 28 : 0.170226 and validation loss : 0.001819
+Total loss in epoch 29 : 0.164612 and validation loss : 0.001760
+Total loss in epoch 30 : 0.159351 and validation loss : 0.001705
+Total loss in epoch 31 : 0.154419 and validation loss : 0.001653
+Total loss in epoch 32 : 0.149790 and validation loss : 0.001603
+Total loss in epoch 33 : 0.145430 and validation loss : 0.001558
+Total loss in epoch 34 : 0.141301 and validation loss : 0.001514
+Total loss in epoch 35 : 0.137425 and validation loss : 0.001473
+Total loss in epoch 36 : 0.133730 and validation loss : 0.001434
+Total loss in epoch 37 : 0.130250 and validation loss : 0.001397
+Total loss in epoch 38 : 0.126928 and validation loss : 0.001362
+Total loss in epoch 39 : 0.123792 and validation loss : 0.001329
+Total loss in epoch 40 : 0.120781 and validation loss : 0.001297
+Total loss in epoch 41 : 0.117947 and validation loss : 0.001267
+Total loss in epoch 42 : 0.115202 and validation loss : 0.001238
+Total loss in epoch 43 : 0.112627 and validation loss : 0.001210
+Total loss in epoch 44 : 0.110136 and validation loss : 0.001184
+Total loss in epoch 45 : 0.107740 and validation loss : 0.001159
+Total loss in epoch 46 : 0.105493 and validation loss : 0.001135
+Total loss in epoch 47 : 0.103297 and validation loss : 0.001111
+Total loss in epoch 48 : 0.101191 and validation loss : 0.001089
+Total loss in epoch 49 : 0.099210 and validation loss : 0.001067
+Total loss in epoch 50 : 0.097271 and validation loss : 0.001047
+Total loss in epoch 51 : 0.095382 and validation loss : 0.001027
+Total loss in epoch 52 : 0.093623 and validation loss : 0.001008
+Total loss in epoch 53 : 0.091911 and validation loss : 0.000990
+Total loss in epoch 54 : 0.090235 and validation loss : 0.000972
+Total loss in epoch 55 : 0.088607 and validation loss : 0.000955
+Total loss in epoch 56 : 0.087095 and validation loss : 0.000939
+Total loss in epoch 57 : 0.085617 and validation loss : 0.000922
+Total loss in epoch 58 : 0.084164 and validation loss : 0.000907
+Total loss in epoch 59 : 0.082737 and validation loss : 0.000892
+Total loss in epoch 60 : 0.081397 and validation loss : 0.000878
+Total loss in epoch 61 : 0.080121 and validation loss : 0.000864
+Total loss in epoch 62 : 0.078866 and validation loss : 0.000851
+Total loss in epoch 63 : 0.077629 and validation loss : 0.000837
+Total loss in epoch 64 : 0.076414 and validation loss : 0.000824
+Elapsed time: 52361.70907187462
